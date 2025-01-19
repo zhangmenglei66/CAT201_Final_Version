@@ -54,18 +54,18 @@
     <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=findcart">
         <dl>
             <dt><img src="${pageContext.request.contextPath}/img/gt1.png"/></dt>
-            <dd>去购<br/>物车</dd>
+            <dd>Shopping<br/>Cart</dd>
         </dl>
     </a>
     <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=mydata">
         <dl>
             <dt><img src="${pageContext.request.contextPath}/img/gt3.png"/></dt>
-            <dd>个人<br/>中心</dd>
+            <dd>Personal<br/>Center</dd>
         </dl>
     </a><a href="#" class="toptop" style="display: none;">
     <dl>
         <dt><img src="${pageContext.request.contextPath}/img/gt4.png"/></dt>
-        <dd>返回<br/>顶部</dd>
+        <dd>Back<br/>Top</dd>
     </dl>
 </a>
 </div>

@@ -1,53 +1,51 @@
-//Register表单验证
-$(function(){
-	var form=$("#myForm").Validform({
-		tiptype:2,//validform初始化
+$(function() {
+	const form = $("#myForm").Validform({
+		tiptype: 2 // Initialize Validform
 	});
+
 	form.addRule([
 		{
-			ele:"#passWord",
-			datatype:"*3-12",
-			nullmsg:"*请输入password！",
-			errormsg:"*password为3-12位字符，请重新输入"
+			ele: "#passWord",
+			datatype: "*3-12",
+			nullmsg: "Please enter a password",
+			errormsg: "Password must be 3-12 characters long"
 		},
 		{
-			ele:"#c_passWord",
-			datatype:"*",
-			recheck:"passWord",
-			mullmsg:"*please input confirm password！",
-			errormsg:"*两次输入的password不一致，请重新输入！"
+			ele: "#c_passWord",
+			datatype: "*",
+			recheck: "passWord",
+			nullmsg: "Please confirm your password",
+			errormsg: "Passwords do not match"
 		},
 		{
-			ele:"#name",
-		    datatype:"*2-15",
-		    nullmsg:"请输入Name！",
-		    errormsg:"Name为2-15个字符,请重新输入！"
+			ele: "#name",
+			datatype: "*2-15",
+			nullmsg: "Please enter your name",
+			errormsg: "Name must be 2-15 characters long"
 		},
 		{
-			ele:"#sex",
-		    datatype:"*",
-		    nullmsg:"Please select Gender！",
-		    errormsg:"Please select Gender！"
+			ele: "#sex",
+			datatype: "*",
+			nullmsg: "Please select your gender",
+			errormsg: "Please select your gender"
 		},
 		{
-			ele:"#age",
-		    datatype:"n1-2",
-		    nullmsg:"请输入年龄",
-		    errormsg:"年龄为1-2位数字，请重新输入！"
+			ele: "#age",
+			datatype: "n1-2",
+			nullmsg: "Please enter your age",
+			errormsg: "Age must be a 1-2 digit number"
 		},
 		{
-			ele:"#tell",
-		    datatype:"/^13[0-9]{9}$|17[0-9]{9}$|14[0-9]{9}&|15[0-9]{9}$|18[0-9]{9}$/",
-		    nullmsg:"请输入Telephone号码",
-		    errormsg:"Telephone号码输入不正确，请重新输入！"
+			ele: "#tell",
+			datatype: "/^13[0-9]{9}$|17[0-9]{9}$|14[0-9]{9}&|15[0-9]{9}$|18[0-9]{9}$/",
+			nullmsg: "Please enter your phone number",
+			errormsg: "Please enter a valid phone number"
 		},
 		{
-			ele:"#address",
-		    datatype:"*1-100",
-		    nullmsg:"请输入Address！",
-		    errormsg:"请输入Address长度过长（100）！"
+			ele: "#address",
+			datatype: "*1-100",
+			nullmsg: "Please enter your address",
+			errormsg: "Address must not exceed 100 characters"
 		}
-
 	]);
-
 });

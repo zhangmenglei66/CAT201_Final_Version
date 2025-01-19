@@ -19,7 +19,6 @@
     <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
     <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
     <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.zh-CN.js"></script>
     <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script src="${pageContext.request.contextPath}/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
     <script src="${pageContext.request.contextPath}/plugins/bootstrap-slider/bootstrap-slider.js"></script>
