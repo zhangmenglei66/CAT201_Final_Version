@@ -26,7 +26,7 @@
             </div>
             <div class="fr intro">
                 <div class="title"><h4>${product.productName}</h4>
-                    <p style="margin-top: 50px;">${product.productDescription}</p><span>￥${product.productPrice}0</span></div>
+                    <p style="margin-top: 50px;">${product.productDescription}</p><span>RM${product.productPrice}0</span></div>
                 <div class="proIntro">
 
                     <p>Quantity:&nbsp;&nbsp;<span>${product.productStock}</span> in stock</p>
