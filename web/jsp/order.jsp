@@ -75,7 +75,7 @@
         <div class="tr clearfix">
             <p class="fr">
                 <span>total<small id="sl">${count}</small> in stock </span>
-                <span>Total:&nbsp;<small id="all">￥${totalprice}</small></span>
+                <span>Total:&nbsp;<small id="all">RM${totalprice}</small></span>
                 <button style="width: 150px;height: 40px;color:white;background-color: red;margin-left: 30px"
                         onclick="pay()">Pay now
                 </button>
