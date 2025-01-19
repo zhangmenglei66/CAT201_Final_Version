@@ -471,17 +471,6 @@
     border-radius: 6px;
 }
 
-.logistic .bb {
-    background: url("../img/bg.png") no-repeat 0 0;
-    position: absolute;
-    left: -20px;
-    top: 10px;
-    width: 41px;
-    height: 18px;
-    margin-left: -41px;
-    margin-top: -9px;
-}
-
 /*遮罩*/
 .mask {
     position: fixed;

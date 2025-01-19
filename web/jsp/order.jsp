@@ -17,7 +17,7 @@
     <div class="site">
         <p class=" wrapper clearfix">
             <span class="fl">Order confirmation</span>
-            <!-- <img class="top" src="${pageContext.request.contextPath}/img/cartTop02.png"> -->
+
         </p>
     </div>
     <div class="table wrapper">

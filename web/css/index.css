@@ -14,14 +14,6 @@ img {
     height: 300px;
 }
 
-.thImg div {
-    position: absolute;
-    padding: 15px;
-    /*top: -50px;*/
-    left: 0;
-    background: url("../img/bg.png") #fff repeat-x bottom;
-}
-
 .thImg a {
     float: left;
     width: 260px;

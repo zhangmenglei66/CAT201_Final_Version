@@ -24,22 +24,9 @@
         </ul>
     </div>
 </div>
-<%--<div class="thImg">
-    <div class="clearfix">
-        <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=selectproduct&fid=1">
-            <img src="${pageContext.request.contextPath}/img/i1.jpg"/>
-        </a>
-        <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=selectproduct&fid=3">
-            <img src="${pageContext.request.contextPath}/img/i2.jpg"/>
-        </a>
-        <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=selectproduct&fid=5">
-            <img src="${pageContext.request.contextPath}/img/i3.jpg"/>
-        </a>
-    </div>
-</div>--%>
 <div class="news">
     <div class="wrapper">
-<%--        <h2><img src="${pageContext.request.contextPath}/img/title1.jpg"/></h2>--%>
+
         <div class="flower clearfix tran">
             <c:forEach begin="0" end="2" var="fz" items="${fz}">
             <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=productdetails&product_id=${fz.id}" class="clearfix">
@@ -62,7 +49,6 @@
                 </a>
             </c:forEach>
         </div>
-<%--        <h2><img src="${pageContext.request.contextPath}/img/title2.jpg"/></h2>--%>
         <div class="flower clearfix tran">
             <c:forEach begin="0" end="2" var="dz" items="${dz}">
                 <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=productdetails&product_id=${dz.id}" class="clearfix">
@@ -92,7 +78,6 @@
     </a>
 <div class="people">
     <div class="wrapper">
-<%--        <h2><img src="${pageContext.request.contextPath}/img/title3.jpg"/></h2>--%>
         <div class="pList clearfix tran">
             <c:forEach begin="0" end="3" items="${mz}" var="mz">
                 <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=productdetails&product_id=${mz.id}">
