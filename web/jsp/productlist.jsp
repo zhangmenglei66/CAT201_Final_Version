@@ -42,7 +42,7 @@
                         <dt><img src="/photo/${product.productImage}"></dt>
                         <dd>${product.productName}</dd>
                         <dd></dd>
-                        <dd>￥${product.productPrice}0</dd>
+                        <dd>RM${product.productPrice}0</dd>
                     </dl>
                 </a>
             </li>
