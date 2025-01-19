@@ -88,7 +88,7 @@
                             <span class="abr"></span>
                         </dt>
                         <dd style="width: 270px;">${mz.productName}</dd>
-                        <dd><span>￥${mz.productPrice}0</span></dd>
+                        <dd><span>RM${mz.productPrice}0</span></dd>
                     </dl>
                 </a>
             </c:forEach>
