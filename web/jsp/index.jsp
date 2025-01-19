@@ -103,7 +103,7 @@
                             <span class="abr"></span>
                         </dt>
                         <dd style="width: 270px;">${mz.productName}</dd>
-                        <dd><span>￥${mz.productPrice}0</span></dd>
+                        <dd><span>RM${mz.productPrice}0</span></dd>
                     </dl>
                 </a>
             </c:forEach>
@@ -118,7 +118,7 @@
                             <span class="abr"></span>
                         </dt>
                         <dd style="width: 270px;">${mz.productName}</dd>
-                        <dd><span>￥${mz.productPrice}0</span></dd>
+                        <dd><span>RM${mz.productPrice}0</span></dd>
                     </dl>
                 </a>
             </c:forEach>
@@ -130,13 +130,13 @@
     <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=findcart">
     <dl>
         <dt><img src="${pageContext.request.contextPath}/img/gt1.png"/></dt>
-        <dd>去购<br/>物车</dd>
+        <dd>GO<br/>Cart</dd>
     </dl>
 </a>
     <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=mydata">
         <dl>
             <dt><img src="${pageContext.request.contextPath}/img/gt3.png"/></dt>
-            <dd>个人<br/>中心</dd>
+            <dd>P-<br/>Center</dd>
         </dl>
     </a>
     <a href="#" class="toptop" style="display: none">
