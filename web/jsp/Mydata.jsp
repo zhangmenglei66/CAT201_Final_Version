@@ -30,24 +30,21 @@
         </div>
     </div>
 </div>
-<div class="gotop">
-    <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=findcart">
-        <dl>
-            <dt><img src="${pageContext.request.contextPath}/img/gt1.png"/></dt>
-            <dd>去购<br/>物车</dd>
-        </dl>
+<div class="float-nav">
+    <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=findcart" class="nav-item">
+        <img src="${pageContext.request.contextPath}/img/cart-icon.png" alt="Cart">
+        <span>Cart</span>
     </a>
-    <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=mydata">
-    <dl>
-        <dt><img src="${pageContext.request.contextPath}/img/gt3.png"/></dt>
-        <dd>个人<br/>中心</dd>
-    </dl>
-</a><a href="#" class="toptop" style="display: none">
-    <dl>
-        <dt><img src="${pageContext.request.contextPath}/img/gt4.png"/></dt>
-        <dd>返回<br/>顶部</dd>
-    </dl>
-</a>
+
+    <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=mydata" class="nav-item">
+        <img src="${pageContext.request.contextPath}/img/profile-icon.png" alt="Profile">
+        <span>Profile</span>
+    </a>
+
+    <button class="nav-item back-to-top" id="backToTop">
+        <img src="${pageContext.request.contextPath}/img/arrow-up-icon.png" alt="Top">
+        <span>Top</span>
+    </button>
 </div>
 <div class="footer">
     <div class="top">
