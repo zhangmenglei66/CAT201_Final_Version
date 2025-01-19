@@ -1,127 +1,128 @@
-$(function(){
-	var form=$("#myForm").Validform({
-		tiptype:2,//validform初始化
-	});
-	form.addRule([
-		{
-			ele:"#userName",
-		    datatype:"/^[a-zA-Z]{1}[a-zA-Z0-9]{3,7}$/",
-		    ajaxurl:"jsp/admin/AdminManageServlet?action=find",
-		    nullmsg:"请输入username！",
-		    errormsg:"Username must start with a letter and be 4-8 characters long.，请重新输入！"
+$(document).ready(function() {
+	// Form validation configuration
+	const validationConfig = {
+		username: {
+			selector: '#userName',
+			pattern: /^[a-zA-Z][a-zA-Z0-9]{3,7}$/,
+			messages: {
+				required: 'Please enter a username',
+				format: 'Username must start with a letter and be 4-8 characters long',
+				exists: 'Username already exists'
+			},
+			async validate(value) {
+				try {
+					const response = await $.get('jsp/admin/AdminManageServlet', {
+						action: 'find',
+						userName: value
+					});
+					return response.exists ? 'exists' : true;
+				} catch (error) {
+					console.error('Username validation error:', error);
+					return 'Unable to verify username';
+				}
+			}
 		},
-		{
-			ele:"#passWord",
-			datatype:"s4-8",
-			nullmsg:"请输入password",
-			errormsg:"password must be 4-8 characters long.，请重新输入！"
+		password: {
+			selector: '#passWord',
+			pattern: /^.{4,8}$/,
+			messages: {
+				required: 'Please enter a password',
+				format: 'Password must be 4-8 characters long'
+			}
 		},
-		{
-			ele:"#c_passWord",
-			datatype:"*",
-			recheck:"passWord",
-			mullmsg:"please input confirm password！",
-			errormsg:"两次输入的password不一致，请重新输入！"
+		confirmPassword: {
+			selector: '#c_passWord',
+			messages: {
+				required: 'Please confirm your password',
+				mismatch: 'Passwords do not match'
+			},
+			validate(value, form) {
+				return value === $(form).find('#passWord').val() ? true : 'mismatch';
+			}
 		},
-		{
-			ele:"#name",
-			datatype:"s2-8",
-			mullmsg:"请输入Name！",
-			errormsg:"name must be 2-8 characters long.，请重新输入！"
+		name: {
+			selector: '#name',
+			pattern: /^.{2,8}$/,
+			messages: {
+				required: 'Please enter your name',
+				format: 'Name must be 2-8 characters long'
+			}
 		}
-	]);
+	};
 
+	// Initialize form validation
+	class FormValidator {
+		constructor(formSelector, config) {
+			this.form = $(formSelector);
+			this.config = config;
+			this.setupValidation();
+		}
+
+		setupValidation() {
+			this.form.on('submit', (e) => this.handleSubmit(e));
+
+			// Setup real-time validation
+			Object.keys(this.config).forEach(field => {
+				const { selector } = this.config[field];
+				$(selector).on('blur', (e) => this.validateField(field, e.target));
+			});
+		}
+
+		async validateField(fieldName, element) {
+			const config = this.config[fieldName];
+			const $element = $(element);
+			const value = $element.val().trim();
+			const $error = $element.next('.error-message');
+
+			// Clear previous error
+			this.showError($element, '');
+
+			// Required check
+			if (!value) {
+				this.showError($element, config.messages.required);
+				return false;
+			}
+
+			// Pattern check
+			if (config.pattern && !config.pattern.test(value)) {
+				this.showError($element, config.messages.format);
+				return false;
+			}
+
+			// Custom validation
+			if (config.validate) {
+				const result = await config.validate(value, this.form[0]);
+				if (result !== true) {
+					this.showError($element, config.messages[result] || result);
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		showError($element, message) {
+			let $error = $element.next('.error-message');
+			if (!$error.length) {
+				$error = $('<div class="error-message"></div>').insertAfter($element);
+			}
+			$error.text(message).toggleClass('active', !!message);
+		}
+
+		async handleSubmit(e) {
+			e.preventDefault();
+
+			const validations = Object.keys(this.config).map(field =>
+				this.validateField(field, $(this.config[field].selector)[0])
+			);
+
+			const results = await Promise.all(validations);
+			if (results.every(result => result === true)) {
+				this.form[0].submit();
+			}
+		}
+	}
+
+	// Initialize form validation
+	const validator = new FormValidator('#myForm', validationConfig);
 });
-
-
-
-////ajax实时判断用户存在否
-//var oldErr;
-//var xmlHttp;
-//var flag=true;//标记
-//function ck_username(){
-//		xmlHttp=getXmlHttp();
-//
-//		//username验证4-8位大小写字母和数字
-//
-//		if($("#userName").val()==null){
-//			return;
-//		}
-//
-//		var url="UserServlet?action=find&userName="+$("#userName").val();
-//		xmlHttp.open("GET",url,true);
-//		xmlHttp.onreadystatechange=function(){
-//			if(xmlHttp.readyState==4 && xmlHttp.status==200){
-//				var json=JSON.parse(xmlHttp.responseText);
-//				var info=json['info'];
-//				if(info==0){
-//					oldErr=$(".ckerr").eq(0).html("*username已存在！请重新输入！").css("color","red");
-//					flag=true;
-//				}else{
-//					if(oldErr!=null){
-//						oldErr.html("√ 正确").css("color","green");
-//						flag=false;
-//					}
-//				}
-//			}
-//		}
-//		xmlHttp.send(null);
-//	}
-//
-//
-//
-//function getXmlHttp(){
-//	var xHttp;
-//	if(window.XMLHttpRequest){
-//		xHttp=new XMLHttpRequest();
-//	}
-//	if(window.ActiveXObject){
-//		xHttp=new ActiveXObject("Microsoft.XMLHttp");
-//	}
-//	return xHttp;
-//}
-//
-//
-//
-//
-//function checkAdd(){
-//	//拦截用户存在还Submit
-//	if(flag){
-//		$("#userName").focus();
-//		return false;
-//	}
-//	if(oldErr!=null){
-//		oldErr.html("√ 正确").css("color","green");
-//	}
-//
-//	//username验证4-8位大小写字母和数字
-//	var reg=/^[a-zA-Z]{1}[a-zA-Z0-9]{3,7}$/;
-//	if(!reg.test($("#userName").val())){
-//		$("#userName").focus();
-//		oldErr=$(".ckerr").eq(0).html("*username以字母开头的4~8位字母数字组成,请重新输入!").css("color","red");
-//		return false;
-//	}
-//
-//	//password验证4-8位单字符
-//	reg=/^(\w){4,8}$/;
-//	if(!reg.test($("#passWord").val())){
-//		$("#passWord").focus();
-//		oldErr=$(".ckerr").eq(1).html("*password must be 4-8 characters long.，请重新输入！").css("color","red");
-//		return false;
-//	}
-//	if($("#passWord_ck").val()!=$("#passWord").val()){
-//		$("#passWord_ck").focus();
-//		oldErr=$(".ckerr").eq(2).html("*两次password不一致，请重新输入！").css("color","red");
-//		return false;
-//	}
-//	//Name验证2-8位
-//	namelen=$("#name").val().length;
-//	if(namelen<2 && namelen>8){
-//		$("#name").focus();
-//		oldErr=$(".ckerr").eq(3).html("*Name为2~8位，请重新输入！").css("color","red");
-//		return false;
-//	}
-//
-//	return true;
-//}
-//
