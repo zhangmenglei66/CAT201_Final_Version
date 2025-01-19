@@ -27,80 +27,94 @@
     <script src="${pageContext.request.contextPath}/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 
     <script>
-        $(function () {
+        $(document).ready(function() {
+            // Initialize checkbox styling
             $('input').iCheck({
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue',
                 increaseArea: '20%'
             });
-        });
-        $(document).ready(function () {
-            $('#datepicker-a3').datepicker({
+
+            // Initialize datepickers
+            const datepickerConfig = {
                 autoclose: true,
-                language: 'zh-CN'
-            });
-        });
+                language: 'en'
+            };
 
+            $('#datepicker-a3, #datepicker-a6').datepicker(datepickerConfig);
 
-        $(document).ready(function () {
-            $('#datepicker-a6').datepicker({
-                autoclose: true,
-                language: 'zh-CN'
-            });
-        });
+            // Form validation
+            const validationRules = {
+                username: {
+                    required: 'Username cannot be empty',
+                    async validate(value) {
+                        if (!value) return false;
 
-        function ForcusItem(obj) {
-            $(obj).next('span').html('').removeClass('error');
-        }
-
-        function check(obj) {
-            var msg_box = $(obj).next('span');
-            switch ($(obj).attr('name')) {
-                case "username":
-                    if (obj.value == "") {
-                        msg_box.html('*username can not be null');
-                        msg_box.addClass('error');
-                    } else {
-                        var url = "/UserServlet?action=usernamecheck&user_name=" + encodeURI($(obj).val()) + "&" + new Date().getTime();
-                        $.get(url, function (data) {
-                            console.log(data)
-                            if (data == 1) {
-                                msg_box.html('*username已存在');
-                                msg_box.addClass('error');
-                            } else {
-                                msg_box.html('*username可使用');
-                                msg_box.html().removeClass('error');
-                            }
+                        const response = await $.get('/UserServlet', {
+                            action: 'usernamecheck',
+                            user_name: value,
+                            timestamp: Date.now()
                         });
-                    }
-                    break;
-                case "nickname": {
-                    if (obj.value == "") {
-                        msg_box.html('*Nickname can not be null');
-                        msg_box.addClass('error');
-                    }
-                    break;
-                }
-                case  "user_Password": {
-                    if (obj.value == "") {
-                        msg_box.html('*password can not be null');
-                        msg_box.addClass('error');
-                    }
-                    break;
-                }
-                case  "user_rePassword": {
-                    if (obj.value == "") {
-                        msg_box.html('*Confirm password can not be null');
-                        msg_box.addClass('error');
-                    } else if ($(obj).val() != $('input[name="user_Password"]').val()) {
-                        msg_box.html('两次输入的password不一致');
-                        msg_box.addClass('error');
 
+                        return response === 1 ? 'Username already exists' : 'Username is available';
                     }
-                    break;
+                },
+                nickname: {
+                    required: 'Nickname cannot be empty'
+                },
+                user_Password: {
+                    required: 'Password cannot be empty'
+                },
+                user_rePassword: {
+                    required: 'Confirm password cannot be empty',
+                    validate(value, form) {
+                        const password = form.querySelector('[name="user_Password"]').value;
+                        return value === password ? true : 'Passwords do not match';
+                    }
                 }
-            }
-        }
+            };
+
+            // Clear error on focus
+            $('form input').on('focus', function() {
+                $(this).next('span')
+                    .removeClass('error')
+                    .empty();
+            });
+
+            // Validate on blur
+            $('form input').on('blur', async function() {
+                const field = $(this);
+                const fieldName = field.attr('name');
+                const errorSpan = field.next('span');
+
+                if (!validationRules[fieldName]) return;
+
+                const rule = validationRules[fieldName];
+
+                // Check required
+                if (!field.val() && rule.required) {
+                    errorSpan
+                        .html(rule.required)
+                        .addClass('error');
+                    return;
+                }
+
+                // Run custom validation
+                if (rule.validate) {
+                    const result = await rule.validate(field.val(), field[0].form);
+
+                    if (result !== true) {
+                        errorSpan
+                            .html(result)
+                            .addClass('error');
+                    } else {
+                        errorSpan
+                            .removeClass('error')
+                            .empty();
+                    }
+                }
+            });
+        });
     </script>
 
 </head>
