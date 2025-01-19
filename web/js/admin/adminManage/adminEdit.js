@@ -6,21 +6,21 @@ $(function(){
 		{
 			ele:"#passWord",
 			datatype:"s4-8",
-			nullmsg:"请输入password",
-			errormsg:"password must be 4-8 characters long.，请重新输入！"
+			nullmsg:"Please enter password",
+			errormsg:"password must be 4-8 characters long.，Please reenter！"
 		},
 		{
 			ele:"#c_passWord",
 			datatype:"*",
 			recheck:"passWord",
 			mullmsg:"please input confirm password！",
-			errormsg:"两次输入的password不一致，请重新输入！"
+			errormsg:"Two different password, Please enter again！"
 		},
 		{
 			ele:"#name",
 			datatype:"s2-8",
-			mullmsg:"请输入Name！",
-			errormsg:"name must be 2-8 characters long.，请重新输入！"
+			mullmsg:"Please enter name！",
+			errormsg:"name must be 2-8 characters long.！"
 		}
 	]);
 });
