@@ -1,90 +1,76 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <base href="<%=basePath%>">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Shipping Address Edit</title>
-    <link rel="stylesheet" type="text/css" href="bs/css/bootstrap.css">
-    <script type="text/javascript" src="bs/js/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="bs/validform/style.css">
-    <script type="text/javascript" src="bs/validform/Validform_v5.3.2_min.js"></script>
-    <style type="text/css">
-        body{
-            margin:0;
-            padding:0;
-            background:#eee;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Shipping Address</title>
+    <link rel="stylesheet" href="bs/css/bootstrap.css">
+    <link rel="stylesheet" href="bs/validform/style.css">
+    <script src="bs/js/jquery.min.js"></script>
+    <script src="bs/validform/Validform_v5.3.2_min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f7f7f7;
         }
-        #addressEditForm{
-        	margin-top:20px;
+        .container {
+            margin-top: 20px;
         }
-
-        .row{
-        	margin-top:10px;
-
+        .form-group {
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <c:if test="${!empty addressMessage}">
-        <h3 class="text-center">${addressMessage}</h3>
+        <div class="alert alert-info text-center">${addressMessage}</div>
     </c:if>
-    <h2 class="text-center">Shipping Address Edit</h2>
-
+    <h2 class="text-center">Edit Shipping Address</h2>
     <form id="addressEditForm" class="form-horizontal" action="jsp/admin/AddressManageServlet?action=update" method="post">
         <input type="hidden" name="id" value="${addressInfo.id}">
 
-				<div class="form-group">
-            <label for="phone" class="col-sm-2 col-sm-offset-2 control-label">Recipient‘s telephone</label>
-            <div class="col-sm-4">
-                <input type="text" name="phone" id="phone" class="form-control" value="${addressInfo.phone}">
+        <div class="form-group">
+            <label for="phone" class="col-sm-3 control-label">Recipient’s Phone</label>
+            <div class="col-sm-6">
+                <input type="text" name="phone" id="phone" class="form-control" value="${addressInfo.phone}" required>
             </div>
-            <div class="col-sm-4 Validform_checktip"></div>
-        </div>
-				<div class="form-group">
-            <label for="address" class="col-sm-2 col-sm-offset-2 control-label">Recipient‘s address</label>
-            <div class="col-sm-4">
-                <input type="text" name="address" id="address" class="form-control" value="${addressInfo.address}">
-            </div>
-            <div class="col-sm-4 Validform_checktip"></div>
-        </div>
-				<div class="form-group">
-            <label for="name" class="col-sm-2 col-sm-offset-2 control-label">Recipient‘s name</label>
-            <div class="col-sm-4">
-                <input type="text" name="name" id="name" class="form-control" value="${addressInfo.name}">
-            </div>
-            <div class="col-sm-4 Validform_checktip"></div>
-        </div>
-				<div class="form-group">
-            <label for="userId" class="col-sm-2 col-sm-offset-2 control-label">User ID</label>
-            <div class="col-sm-4">
-                <input type="text" name="userId" id="userId" class="form-control" value="${addressInfo.userId}">
-            </div>
-            <div class="col-sm-4 Validform_checktip"></div>
-        </div>
-	        <div class="form-group">
-            <label class="col-sm-2 col-sm-offset-2 control-label">
-                <input class="btn btn-success btn-block" type="submit" value="Submit">
-            </label>
-            <label class="col-sm-2 control-label">
-                <input class="btn btn-warning btn-block" type="reset" value="Reset">
-            </label>
-
         </div>
 
+        <div class="form-group">
+            <label for="address" class="col-sm-3 control-label">Recipient’s Address</label>
+            <div class="col-sm-6">
+                <input type="text" name="address" id="address" class="form-control" value="${addressInfo.address}" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name" class="col-sm-3 control-label">Recipient’s Name</label>
+            <div class="col-sm-6">
+                <input type="text" name="name" id="name" class="form-control" value="${addressInfo.name}" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="userId" class="col-sm-3 control-label">User ID</label>
+            <div class="col-sm-6">
+                <input type="text" name="userId" id="userId" class="form-control" value="${addressInfo.userId}" required>
+            </div>
+        </div>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="reset" class="btn btn-warning">Reset</button>
+        </div>
     </form>
-
 </div>
-<script type="text/javascript">
-
-
-</script>
-
 </body>
 </html>
