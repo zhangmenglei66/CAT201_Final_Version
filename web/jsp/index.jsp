@@ -142,7 +142,7 @@
     <a href="#" class="toptop" style="display: none">
         <dl>
             <dt><img src="${pageContext.request.contextPath}/img/gt4.png"/></dt>
-            <dd>返回<br/>顶部</dd>
+            <dd>Back<br/>Top</dd>
         </dl>
     </a>
 </div>
@@ -154,7 +154,7 @@
             </div>
             <div class="clearfix"><a href="#2" class="fl"><img src="${pageContext.request.contextPath}/img/foot2.png"/></a><span class="fl">15-day free exchange</span>
             </div>
-            <div class="clearfix"><a href="#2" class="fl"><img src="${pageContext.request.contextPath}/img/foot3.png"/></a><span class="fl">Free shipping on orders over 599</span>
+            <div class="clearfix"><a href="#2" class="fl"><img src="${pageContext.request.contextPath}/img/foot3.png"/></a><span class="fl">Free shipping on orders over 599RM</span>
             </div>
             <div class="clearfix"><a href="#2" class="fl"><img src="${pageContext.request.contextPath}/img/foot4.png"/></a><span class="fl">Mobile special services</span>
             </div>

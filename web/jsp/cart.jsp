@@ -1,120 +1,114 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
-<head lang="en">
-    <meta charset="utf-8"/>
-    <title>cart</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/public.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/proList.css"/>
-    <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+    <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 </head>
 <body>
-    <div class="head ding">
-        <%@include file="header.jsp"%>
-    </div>
-    <div class="cart mt">
-        <div class="site">
-            <p class=" wrapper clearfix">
-            <span class="fl">Cart</span>
-            </p>
+<header>
+    <%@include file="header.jsp"%>
+</header>
+
+<main class="cart-container">
+    <h1>Shopping Cart</h1>
+
+    <div class="cart-table">
+        <div class="cart-header">
+            <div>Product</div>
+            <div>Price</div>
+            <div>Quantity</div>
+            <div>Total</div>
+            <div>Actions</div>
         </div>
-        <div class="table wrapper">
-            <div class="tr">
-                <div>Product</div>
-                <div>Price</div>
-                <div>Quantity:</div>
-                <div>Total</div>
-                <div>Operate</div>
-            </div>
-            <c:forEach items="${cart}" var="cart">
-            <div class="th">
-                <div class="pro clearfix">
-                    <label class="fl"><input type="checkbox" name="ck" value="${cart.id}"/><span></span></label>
-                    <a class="fl" href="${pageContext.request.contextPath}/jsp/IndexServlet?action=productdetails&product_id=${cart.productId}">
-                    <dl class="clearfix">
-                        <dt class="fl"><img src="/photo/${cart.product.productImage}" style="width: 100px;height: 100px;"></dt>
-                        <dt class="fl" style="width: 220px;font-size: 15px"><p>${cart.product.productName}</p></dt>
-                    </dl>
+
+        <c:forEach items="${cart}" var="item">
+            <div class="cart-item">
+                <div class="product-info">
+                    <input type="checkbox" name="cartItem" value="${item.id}">
+                    <a href="${pageContext.request.contextPath}/products/${item.productId}">
+                        <img src="/images/${item.product.productImage}" alt="${item.product.productName}"
+                             class="product-image">
+                        <span class="product-name">${item.product.productName}</span>
                     </a>
                 </div>
-                <div class="price">￥${cart.product.productPrice}0</div>
-                <div class="number">
-                    <p class="num clearfix">
-                        <img class="fl sub" src="${pageContext.request.contextPath}/img/sub.jpg">
-                        <span cartid="${cart.id}" class="fl">${cart.cartNum}</span>
-                        <img class="fl add" src="${pageContext.request.contextPath}/img/add.jpg">
-                    </p>
-                </div>
-                <div class="price sAll">￥${cart.product.productPrice * cart.cartNum}</div>
-                <div class="price"><a class="del" href="#2" cartid="${cart.id}">Delete</a></div>
-            </div>
-            </c:forEach>
-            <div class="goOn">空空如也~<a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=base">去逛逛</a></div>
-            <div class="tr clearfix">
-                <label class="fl">
-                    <input class="checkAll" type="checkbox"/><span></span>
-                </label>
-                <p class="fl"><a href="">Select all</a><a href="#" class="del">Delete</a></p>
-                <p class="fr">
-                    <span>total<small id="sl">0</small> in stock </span>
-                    <span>Total:&nbsp;<small id="all">0.00</small></span>
-                    <a onclick="toorder()" class="count">Checkout</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="mask"></div>
-    <div class="tipDel">
-        <p>Confirm to Delete该Product 吗？</p>
-        <p class="clearfix"><a class="fl cer" href="#">确定</a><a class="fr cancel" href="#">Cancel</a></p>
-    </div>
-    <div class="gotop">
-        <a href="${pageContext.request.contextPath}/jsp/IndexServlet?action=mydata">
-            <dl>
-                <dt><img src="${pageContext.request.contextPath}/img/gt3.png"/></dt>
-                <dd>个人<br/>中心</dd>
-            </dl>
-        </a>
-        <a href="#" class="toptop" style="display: none;">
-            <dl>
-                <dt><img src="${pageContext.request.contextPath}/img/gt4.png"/></dt>
-                <dd>返回<br/>顶部</dd>
-            </dl>
-        </a>
-    </div>
-    <div class="footer">
-        <div class="top">
-            <div class="wrapper">
-                <div class="clearfix"><a href="#2" class="fl"><img src="${pageContext.request.contextPath}/img/foot1.png"/></a><span class="fl">7-day no-questions-asked return policy</span>
-                </div>
-                <div class="clearfix"><a href="#2" class="fl"><img src="${pageContext.request.contextPath}/img/foot2.png"/></a><span class="fl">15-day free exchange</span>
-                </div>
-                <div class="clearfix"><a href="#2" class="fl"><img src="${pageContext.request.contextPath}/img/foot3.png"/></a><span class="fl">Free shipping on orders over 599</span>
-                </div>
-                <div class="clearfix"><a href="#2" class="fl"><img src="${pageContext.request.contextPath}/img/foot4.png"/></a><span class="fl">Mobile special services</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mask"></div>
-    <div class="pleaseC"><p>Please select 宝贝</p><img class="off" src="${pageContext.request.contextPath}/img/off.jpg"/></div>
-<script>
-    function toorder(){
-        var str = "";
-        $("input[name='ck']:checked").each(function (index,item) {
-            if ($("input[name='ck']:checked").length-1==index){
-                str+= $(this).val();
-            }else {
-                str+=$(this).val()+",";
-            }
-            location.href="${pageContext.request.contextPath}/jsp/IndexServlet?action=order&str="+str;
-        });
-    }
 
+                <div class="price">$${item.product.productPrice}</div>
+
+                <div class="quantity-controls">
+                    <button class="decrease">-</button>
+                    <span class="quantity" data-cart-id="${item.id}">${item.cartNum}</span>
+                    <button class="increase">+</button>
+                </div>
+
+                <div class="total">$${item.product.productPrice * item.cartNum}</div>
+
+                <div class="actions">
+                    <button class="delete-item" data-cart-id="${item.id}">Remove</button>
+                </div>
+            </div>
+        </c:forEach>
+
+        <c:if test="${empty cart}">
+            <div class="empty-cart">
+                <p>Your cart is empty</p>
+                <a href="${pageContext.request.contextPath}/shop" class="continue-shopping">Continue Shopping</a>
+            </div>
+        </c:if>
+
+        <div class="cart-footer">
+            <div class="cart-actions">
+                <label>
+                    <input type="checkbox" id="selectAll">
+                    Select All
+                </label>
+                <button id="deleteSelected">Delete Selected</button>
+            </div>
+
+            <div class="cart-summary">
+                <span>Items: <span id="itemCount">0</span></span>
+                <span>Total: $<span id="totalAmount">0.00</span></span>
+                <button onclick="checkout()" class="checkout-button">Checkout</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="benefits">
+        <div class="benefit-item">
+            <img src="${pageContext.request.contextPath}/img/return.png" alt="Returns">
+            <span>7-Day Returns</span>
+        </div>
+        <div class="benefit-item">
+            <img src="${pageContext.request.contextPath}/img/exchange.png" alt="Exchange">
+            <span>15-Day Exchange</span>
+        </div>
+        <div class="benefit-item">
+            <img src="${pageContext.request.contextPath}/img/shipping.png" alt="Shipping">
+            <span>Free Shipping Over $599</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function checkout() {
+        const selectedItems = Array.from(document.querySelectorAll('input[name="cartItem"]:checked'))
+            .map(checkbox => checkbox.value)
+            .join(',');
+
+        if (selectedItems) {
+            window.location.href = "${pageContext.request.contextPath}/checkout?items=" + selectedItems;
+        } else {
+            alert("Please select items to checkout");
+        }
+    }
 </script>
-<script src="${pageContext.request.contextPath}/js/public.js" type="text/javascript" charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}/js/pro.js" type="text/javascript" charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}/js/cart.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
 </body>
 </html>
